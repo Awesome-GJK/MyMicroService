@@ -14,6 +14,7 @@
         <module>b_server</module>
         <module>gateway_server</module>
         <module>dynamic_thread_pool</module>
+        <module>file_storage</module>
     </modules>
 
     <properties>
