@@ -15,6 +15,7 @@
         <module>gateway_server</module>
         <module>dynamic_thread_pool</module>
         <module>file_storage</module>
+        <module>kafka_learn</module>
     </modules>
 
     <properties>
