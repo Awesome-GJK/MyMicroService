@@ -21,8 +21,8 @@ public class KafkaProducerPartition {
 
     public static void main(String[] args) throws InterruptedException {
         KafkaProducerPartition kafkaProducerPartition = new KafkaProducerPartition();
-//        kafkaProducerPartition.sendByPartition();
-//        kafkaProducerPartition.sendByKey();
+        kafkaProducerPartition.sendByPartition();
+        kafkaProducerPartition.sendByKey();
         kafkaProducerPartition.sendByNothing();
 
     }
@@ -90,17 +90,14 @@ public class KafkaProducerPartition {
         Producer<String, String> producer = getKafkaProducer();
         //生产者发送数据
         for (int i = 0; i < 5; i++) {
-            producer.send(new ProducerRecord<>("tp_first", "sendAsyncCallback" + i), new Callback() {
-                // 该方法在 Producer 收到 ack 时调用，为异步调用
-                @Override
-                public void onCompletion(RecordMetadata metadata, Exception exception) {
-                    if (exception == null) {
-                        //没有异常
-                        System.out.println("topic:" + metadata.topic() + ",partition:" + metadata.partition());
-                    } else {
-                        //打印异常堆栈信息
-                        exception.printStackTrace();
-                    }
+            // 该方法在 Producer 收到 ack 时调用，为异步调用
+            producer.send(new ProducerRecord<>("tp_first", "sendAsyncCallback" + i), (metadata, exception) -> {
+                if (exception == null) {
+                    //没有异常
+                    System.out.println("topic:" + metadata.topic() + ",partition:" + metadata.partition());
+                } else {
+                    //打印异常堆栈信息
+                    exception.printStackTrace();
                 }
             });
 
