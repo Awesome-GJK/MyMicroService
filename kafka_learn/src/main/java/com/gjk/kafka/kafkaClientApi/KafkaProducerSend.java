@@ -83,10 +83,21 @@ public class KafkaProducerSend {
         //创建配置对象
         Properties properties = new Properties();
         //设置bootstrap.servers
-        properties.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+        properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
         //设置key-value序列化方式
-        properties.setProperty(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
-        properties.setProperty(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
+        properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
+        properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
+
+        //调整下面参数可提高生产者的吞吐量
+        // batch.size：批次大小，默认 16K。此处设置32K。
+        properties.put(ProducerConfig.BATCH_SIZE_CONFIG, 32768);
+        // linger.ms：等待时间，默认 0。此处设置为1s
+        properties.put(ProducerConfig.LINGER_MS_CONFIG, 1);
+        // buffer.memory -> RecordAccumulator：缓冲区大小，默认 32M。此处设置为64M。
+        properties.put(ProducerConfig.BUFFER_MEMORY_CONFIG, 67108864);
+        // compression.type：压缩，默认 none，可配置值 gzip、snappy、lz4 和 zstd
+        properties.put(ProducerConfig.COMPRESSION_TYPE_CONFIG, "snappy");
+
         //创建生产者对象
         return new KafkaProducer<>(properties);
     }
