@@ -2,7 +2,6 @@ package com.gjk.filestorage;
 
 import java.util.Properties;
 
-
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import com.gjk.filestorage.enums.FileStorageType;

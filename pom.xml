@@ -13,9 +13,10 @@
         <module>a_server</module>
         <module>b_server</module>
         <module>gateway_server</module>
-        <module>dynamic_thread_pool</module>
-        <module>file_storage</module>
+        <module>components/dynamic_thread_pool</module>
+        <module>components/file_storage</module>
         <module>kafka_learn</module>
+        <module>components/global_log</module>
     </modules>
 
     <properties>
