@@ -1,4 +1,4 @@
-package com.gjk.kafka.kafkaClientApi;
+package com.gjk.kafka.producer;
 
 import java.util.Properties;
 import java.util.concurrent.ExecutionException;
