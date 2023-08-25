@@ -43,7 +43,7 @@ public class KafkaProducerSend {
         Producer<String, String> producer = getKafkaProducer();
         //生产者发送数据
         for (int i = 0; i < 5; i++) {
-            // 该方法在 Producer 收到 ack 时调用，为异步调用
+            // 该方法在 KafkaProducer 收到 ack 时调用，为异步调用
             producer.send(new ProducerRecord<>("tp_first", "sendAsyncCallback" + i), (metadata, exception) -> {
                 if (exception == null) {
                     //没有异常
